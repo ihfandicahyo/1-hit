@@ -10,9 +10,8 @@ aCOLOUR=(
 
 		'\e[1;33m'	# Yellow	| symbol
 		'\e[1m'		# Bold white	|
-		'\e[1;32m'	# Green		| info
-		'\e[1;31m'	# Red		|
-		'\e[1;35m'	#		|
+		'\e[1;32m'	# Green		|
+		'\e[1;31m'      # Red
 
 	)
 	GREEN_LINE=" ${aCOLOUR[0]}─────────────────────────────────────────────────────$COLOUR_RESET"
@@ -114,11 +113,11 @@ lolcat() {
 }
 
 rpm() {
-	tools_rpm ; req ; lolcat ; docker ; ql ; onboot ; fw ; reload
+	tools_rpm ; req ; lolcat ; docker ; ql ; onboot ; fw ; reload ; clear >> install.log
 }
 
 deb() {
-	tools_deb ; req ; docker ; ql ; onboot ; fw ; reload
+	tools_deb ; req ; docker ; ql ; onboot ; fw ; reload ; clear >> install.log 
 }
 
 if [[ $(id -u) -ne 0 ]] ; then
@@ -129,7 +128,7 @@ fi
   RPM=$(which yum)
   APT=$(which apt-get)
 
-	if [[ ! -z $YUM ]]; then
+	if [[ ! -z $RPM ]]; then
     		rpm
 		Q --about
 	elif [[ ! -z $APT ]]; then
