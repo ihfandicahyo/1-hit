@@ -26,7 +26,7 @@ tools_deb() {
 	$ECMD$aCOLOUR1$GREEN_LINE
 		apt update -y
 		apt upgrade -y
-		apt install curl wget net-tools nmap dmidecode lolcat ufw -y > /dev/null 2>&1 &
+		apt install curl wget net-tools nmap dmidecode lolcat ufw -y
 }
 
 tools_rpm() {
@@ -35,15 +35,15 @@ tools_rpm() {
         $ECMD$aCOLOUR1$GREEN_LINE
                 yes | yum update
                 yes | yum upgrade
-		yes | yum install curl wget net-tools nmap dmidecode ufw epel-release ruby > /dev/null 2>&1 &
+		yes | yum install curl wget net-tools nmap dmidecode ufw epel-release ruby
 }
 
 req() {
         $ECMD$aCOLOUR1$GREEN_LINE
         $ECMD $GREEN_BULLET "${aCOLOUR[2]}Installing Requirements ..."
         $ECMD$aCOLOUR1$GREEN_LINE
-                wget https://github.com/poseidon-network/qlauncher-linux/releases/latest/download/ql-linux.tar.gz -O ql.tar.gz > /dev/null 2>&1 &
-                curl -o /usr/bin/Q https://raw.githubusercontent.com/pethot/1-hit/master/conf/Q > /dev/null 2>&1 &
+                wget https://github.com/poseidon-network/qlauncher-linux/releases/latest/download/ql-linux.tar.gz -O ql.tar.gz 
+                curl -o /usr/bin/Q https://raw.githubusercontent.com/pethot/1-hit/master/conf/Q
                 chmod +x /usr/bin/Q
 }
 
@@ -58,8 +58,8 @@ ql() {
         $ECMD$aCOLOUR1$GREEN_LINE
         $ECMD $GREEN_BULLET "${aCOLOUR[2]}Installing Qlauncher ..."
         $ECMD$aCOLOUR1$GREEN_LINE
-	mkdir -p /etc/ql > /dev/null 2>&1 &
-	tar -vxzf ql.tar.gz -C /etc/ql > /dev/null 2>&1 &
+	mkdir -p /etc/ql
+	tar -vxzf ql.tar.gz -C /etc/ql
 	rm ql.tar.gz
 }
 
@@ -78,25 +78,25 @@ EOF
 }
 
 fw() {
-	ufw start > /dev/null 2>&1 &
-	ufw allow ssh > /dev/null 2>&1 &
-	ufw allow 32440:32449/tcp > /dev/null 2>&1 &
-	ufw allow 32440/tcp > /dev/null 2>&1 &
-	ufw allow 32441/tcp > /dev/null 2>&1 &
-	ufw allow 32442/tcp > /dev/null 2>&1 &
-	ufw allow 32443/tcp > /dev/null 2>&1 &
-	ufw allow 32444/tcp > /dev/null 2>&1 &
-	ufw allow 32445/tcp > /dev/null 2>&1 &
-	ufw allow 32446/tcp > /dev/null 2>&1 &
-	ufw allow 32447/tcp > /dev/null 2>&1 &
-	ufw allow 32448/tcp > /dev/null 2>&1 &
-	ufw allow 32449/tcp > /dev/null 2>&1 &
-	ufw allow 22/tcp > /dev/null 2>&1 &
-	ufw allow 8080/tcp > /dev/null 2>&1 &
-	ufw allow 5001/tcp > /dev/null 2>&1 &
-	ufw allow 443/tcp > /dev/null 2>&1 &
-	ufw allow 9096/tcp > /dev/null 2>&1 &
-	ufw reload > /dev/null 2>&1 &
+	ufw start
+	ufw allow ssh
+	ufw allow 32440:32449/tcp
+	ufw allow 32440/tcp
+	ufw allow 32441/tcp
+	ufw allow 32442/tcp
+	ufw allow 32443/tcp
+	ufw allow 32444/tcp
+	ufw allow 32445/tcp
+	ufw allow 32446/tcp
+	ufw allow 32447/tcp
+	ufw allow 32448/tcp
+	ufw allow 32449/tcp
+	ufw allow 22/tcp
+	ufw allow 8080/tcp
+	ufw allow 5001/tcp
+	ufw allow 443/tcp
+	ufw allow 9096/tcp
+	ufw reload
 }
 
 reload() {
@@ -106,8 +106,8 @@ reload() {
 }
 
 lolcat() {
-	wget https://github.com/busyloop/lolcat/archive/master.zip > /dev/null 2>&1 &
-	unzip master.zip > /dev/null 2>&1 &
+	wget https://github.com/busyloop/lolcat/archive/master.zip
+	unzip master.zip
 	cd lolcat-master/bin
 	gem install lolcat
 	cd ; rm -rf lolcat-master
