@@ -77,7 +77,7 @@ EOF
 }
 
 fw() {
-	ufw start
+	yes | ufw enable
 	ufw allow ssh
 	ufw allow 32440:32449/tcp
 	ufw allow 32440/tcp
