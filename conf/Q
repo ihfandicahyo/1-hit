@@ -20,7 +20,7 @@ echo "    -u, --u, -cpu, --cpu		show total cpu usage"
 echo "    -v, --v, -update, --update		update this script"
 echo "    -k, --k, -swap, --swap		add or remove swap"
 echo "    -n, --n, -hostname, --hostname	change hostname"
-echo "    -sn, --sn                             change hwsn"
+echo "    -sn, --sn				change hwsn"
 echo "    -w, --w, -about, --about		see magic"
 echo
 echo "Report this script to: <https://github.com/pethot/1-hit/issues>"
@@ -172,18 +172,32 @@ function port ()
 
 function rem ()
 {
- echo -e "\n\033[1;31mRemoving 'Exited' Container ...\n"
- sleep 1
- docker rm $(docker ps -a -f status=Exited -q)
  echo -e "\033[0;33m"
-    read -p "Are you want to check it ? [Y/y/N/n]" -n 1 -r
- echo -e "\033[0;37m"
- if [[ ! $REPLY =~ ^[Yy]$ ]]
-   then
-     exit 1
+ if docker ps -a | grep Exited ; then
+	echo -e "\033[0;33m"
+	read -p "Are you want to remove it ? [Y/y/N/n]" -n 1 -r
+	echo -e "\033[0;37m"
+		if [[ ! $REPLY =~ ^[Yy]$ ]] ; then
+			exit 1
+ 		else
+    			clear
+			echo -e "\n\033[1;31mRemoving 'Exited' Container ...\n"
+			sleep 1
+			docker container prune
+				echo -e "\033[0;33m"
+				read -p "Are you want to check it ? [Y/y/N/n]" -n 1 -r
+				echo -e "\033[0;37m"
+					if [[ ! $REPLY =~ ^[Yy]$ ]] ; then
+     						exit 2
+					else
+    						clear
+						status | lolcat
+ 					fi
+
+		fi
  else
-    clear
-    status | lolcat
+	echo -e "\033[0;34m  [!]	No container Exited"
+	exit 3
  fi
 }
 

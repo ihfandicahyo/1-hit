@@ -117,7 +117,7 @@ rpm() {
 }
 
 deb() {
-	tools_deb ; req ; docker ; ql ; onboot ; fw ; reload ; clear >> install.log 
+	tools_deb ; req ; docker ; ql ; onboot ; fw ; reload ; clear >> install.log
 }
 
 if [[ $(id -u) -ne 0 ]] ; then
