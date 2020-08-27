@@ -34,7 +34,7 @@ tools_rpm() {
         $ECMD$aCOLOUR1$GREEN_LINE
                 yes | yum update
                 yes | yum upgrade
-		yes | yum install epel-release curl wget net-tools nmap dmidecode unzip ruby ufw
+		yes | yum install epel-release curl wget net-tools nmap dmidecode unzip ruby
 }
 
 req() {
@@ -113,7 +113,7 @@ lolcat() {
 }
 
 rpm() {
-	tools_rpm ; req ; lolcat ; docker ; ql ; onboot ; fw ; reload ; clear >> install.log
+	tools_rpm ; req ; lolcat ; docker ; yum install ufw -y ; ql ; onboot ; fw ; systemctl stop docker ; systemctl start docker ; systemctl enable docker ; reload ; clear >> install.log
 }
 
 deb() {
