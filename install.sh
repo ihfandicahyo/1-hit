@@ -34,7 +34,7 @@ tools_rpm() {
         $ECMD$aCOLOUR1$GREEN_LINE
                 yes | yum update
                 yes | yum upgrade
-		yes | yum install curl wget net-tools nmap dmidecode ufw epel-release ruby
+		yes | yum install epel-release curl wget net-tools nmap dmidecode unzip ruby ufw
 }
 
 req() {
@@ -121,7 +121,7 @@ deb() {
 }
 
 if [[ $(id -u) -ne 0 ]] ; then
-        $ECMD $GREEN_WARN "${aCOLOUR[3]}Please run as root"
+        $ECMD $GREEN_WARN "${aCOLOUR[3]}Please run as root $COLOUR_RESET"
 	exit 1
 fi
 
@@ -135,6 +135,6 @@ fi
     		deb
 		Q --about
 	else
-    		$ECMD $GREEN_WARN "${aCOLOUR[3]}Cant install"
+    		$ECMD $GREEN_WARN "${aCOLOUR[3]}Can't install $COLOUR_RESET"
     	exit 1 ;
  	fi
