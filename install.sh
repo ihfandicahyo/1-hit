@@ -34,14 +34,14 @@ tools_rpm() {
         $ECMD$aCOLOUR1$GREEN_LINE
                 yes | yum update
                 yes | yum upgrade
-		yes | yum install epel-release curl wget net-tools nmap dmidecode unzip ruby
+		yes | yum install epel-release curl wget net-tools ruby nmap dmidecode unzip
 }
 
 req() {
         $ECMD$aCOLOUR1$GREEN_LINE
         $ECMD $GREEN_BULLET "${aCOLOUR[2]}Installing Requirements ..."
         $ECMD$aCOLOUR1$GREEN_LINE
-                wget https://github.com/poseidon-network/qlauncher-linux/releases/latest/download/ql-linux.tar.gz -O ql.tar.gz 
+                wget https://github.com/poseidon-network/qlauncher-linux/releases/latest/download/ql-linux.tar.gz -O ql.tar.gz
                 curl -o /usr/bin/Q https://raw.githubusercontent.com/pethot/1-hit/master/conf/Q
                 chmod +x /usr/bin/Q
 }
@@ -109,22 +109,42 @@ lolcat() {
 	unzip master.zip
 	cd lolcat-master/bin
 	gem install lolcat
-	cd ; rm -rf lolcat-master
+	cd ; rm -rf lolcat-master master.zip
 }
 
 rpm() {
-	tools_rpm ; req ; lolcat ; docker ; yum install ufw -y ; ql ; onboot ; fw ; systemctl stop docker ; systemctl start docker ; systemctl enable docker ; reload ; clear >> install.log
+	tools_rpm ; req ; lolcat ; docker ; yum install ufw -y ; ql ; onboot ; fw ; systemctl stop docker ; systemctl start docker ; systemctl enable docker ; reload >> install.log
 }
 
 deb() {
-	tools_deb ; req ; docker ; ql ; onboot ; fw ; reload ; clear >> install.log
+	tools_deb ; req ; docker ; ql ; onboot ; fw ; reload >> install.log
 }
 
+#Detect root
 if [[ $(id -u) -ne 0 ]] ; then
         $ECMD $GREEN_WARN "${aCOLOUR[3]}Please run as root $COLOUR_RESET"
 	exit 1
 fi
 
+#Fedora 31 and 32 can't install
+if cat /etc/os-release | grep ^PRETTY_NAME | 32 ; then
+	$ECMD $GREEN_WARN "${aCOLOUR[3]}Can't install $COLOUR_RESET"
+	exit 1
+fi
+
+if cat /etc/os-release | grep ^PRETTY_NAME | 31 ; then
+        $ECMD $GREEN_WARN "${aCOLOUR[3]}Can't install $COLOUR_RESET"
+        exit 1
+fi
+
+#Kubernetes doesn't provide arm64
+HOST_ARCH=$(uname -m)
+if [ "${HOST_ARCH}" != "aarch64" ]; then
+  echo -e "${aCOLOUR[3]}This script is only intended to run on ARM devices.$COLOUR_RESET"
+  exit 1
+fi
+
+#kickoff
   RPM=$(which yum)
   APT=$(which apt-get)
 
