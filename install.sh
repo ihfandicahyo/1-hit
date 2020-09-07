@@ -76,28 +76,6 @@ WantedBy=multi-user.target
 EOF
 }
 
-fw() {
-	yes | ufw enable
-	ufw allow ssh
-	ufw allow 32440:32449/tcp
-	ufw allow 32440/tcp
-	ufw allow 32441/tcp
-	ufw allow 32442/tcp
-	ufw allow 32443/tcp
-	ufw allow 32444/tcp
-	ufw allow 32445/tcp
-	ufw allow 32446/tcp
-	ufw allow 32447/tcp
-	ufw allow 32448/tcp
-	ufw allow 32449/tcp
-	ufw allow 22/tcp
-	ufw allow 8080/tcp
-	ufw allow 5001/tcp
-	ufw allow 443/tcp
-	ufw allow 9096/tcp
-	ufw reload
-}
-
 reload() {
 	systemctl daemon-reload
 	systemctl enable qlauncher
@@ -113,11 +91,11 @@ lolcat() {
 }
 
 rpm() {
-	tools_rpm ; req ; lolcat ; docker ; yum install ufw -y ; ql ; onboot ; fw ; systemctl stop docker ; systemctl start docker ; systemctl enable docker ; reload >> install.log
+	tools_rpm ; req ; lolcat ; docker ; ql ; onboot ; systemctl stop docker ; systemctl start docker ; systemctl enable docker ; reload >> install.log
 }
 
 deb() {
-	tools_deb ; req ; docker ; ql ; onboot ; fw ; reload >> install.log
+	tools_deb ; req ; docker ; ql ; onboot ; reload >> install.log
 }
 
 #Detect root
@@ -135,13 +113,6 @@ fi
 if cat /etc/os-release | grep ^PRETTY_NAME | 31 ; then
         $ECMD $GREEN_WARN "${aCOLOUR[3]}Can't install $COLOUR_RESET"
         exit 1
-fi
-
-#Kubernetes doesn't provide arm64
-HOST_ARCH=$(uname -m)
-if [ "${HOST_ARCH}" != "aarch64" ]; then
-  echo -e "${aCOLOUR[3]}This script is only intended to run on ARM devices.$COLOUR_RESET"
-  exit 1
 fi
 
 #kickoff
