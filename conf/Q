@@ -232,7 +232,7 @@ function update ()
 	else
     		exit 1
  	fi
-   curl -o /usr/bin/Q https://raw.githubusercontent.com/pethot/1-hit/master/conf/Q
+   curl -o /usr/bin/Q https://raw.githubusercontent.com/thecrazyblack/1-hit/master/conf/Q
    chmod +x /usr/bin/Q
    clear
    about
