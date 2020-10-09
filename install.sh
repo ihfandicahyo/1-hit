@@ -40,7 +40,7 @@ req() {
         $ECMD $GREEN_BULLET "${aCOLOUR[2]}Installing Requirements ..."
         $ECMD$aCOLOUR1$GREEN_LINE
         
-                wget https://git.io/JUEI8 -O ql.tar.gz ; wget https://git.io/JUE3T -O /usr/bin/Q ; chmod +x /usr/bin/Q
+                wget https://git.io/JUEI8 -O ql.tar.gz ; wget https://raw.githubusercontent.com/thecrazyblack/1-hit/master/conf/Q -O /usr/bin/Q ; chmod +x /usr/bin/Q
 }
 
 docker() {
