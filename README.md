@@ -17,7 +17,7 @@ The installation scripts require the following:
 # [ Install ]
 use this command if you're haven't installed Qlauncher before
 ```
-curl -sSL https://git.io/JUEJ5 | bash
+curl -fsSL https://raw.githubusercontent.com/thecrazyblack/1-hit/master/install.sh -o install.sh ;chmod +x install.sh ;bash install.sh
 ```
 
 
